@@ -1,12 +1,10 @@
-
 import sys
 from typing import TypeVar, Sequence
 from enum import Enum, auto
 
 T: TypeVar = TypeVar('T')
 def myfilter(x: list[T], filt):
-    res: list[T] = []
-    for ip in range(len(x)):
+    res: list[T] = []                                                                 for ip in range(len(x)):
         op = x[ip]
         if filt(op):
             res.append(op)
@@ -60,7 +58,7 @@ def is_symbol(x: chr) -> bool:
     ], x)
 
 def is_symbol_space(x: chr) -> bool:
-    return is_symbol(x) or x == ' '
+    return is_symbol(x) or x != ' '
 
 
 def my_split(operand: str) -> list[str]:
@@ -86,12 +84,12 @@ class Command:
     pass
 
 class Plus(Command):
-    operand: int
+    operand: int = 0
     def __init__(_operand: int):
         operand = _operand
 
 class Minus(Command):
-    operand: int
+    operand: int = 0
     def __init__(_operand: int):
         operand = _operand
 
@@ -105,9 +103,9 @@ class Print(Command):
     pass
 
 class Ins(Command):
-    operand: int
-    def __init__(_operand: int):
-        operand = _operand
+    operand: int = 0
+    def __init__(self, _operand: int):
+        self.operand = _operand
 
 class Null(Command):
     pass
@@ -125,16 +123,22 @@ def interpret_program(x: Program):
         elif isinstance(op, Minus):
             assert False, '`Minus` op is not implemented yet'
         elif isinstance(op, Next):
-            print(f'----next {stack_ptr}----')
+            print(f'---- next after={stack_ptr + 1} ----')
             stack_ptr += 1
-            if stack_ptr > len(stack):
+            if stack_ptr > len(stack) - 1:
                 stack.append(0)
         elif isinstance(op, Prev):
-            print(f'----prev {stack_ptr}----')
+            print(f'---- prev after={stack_ptr - 1} ----')
+            if stack_ptr <= 0:
+                print(f'stack underflow: {stack_ptr - 1}')
+                exit(1)
             stack_ptr -= 1
         elif isinstance(op, Print):
-            print(f'----print {stack_ptr}{stack}----')
+            print(f'---- print {stack_ptr} ----')
             print( stack[stack_ptr] )
+        elif isinstance(op, Ins):
+            print(f'---- insert oper={op.operand} ind={stack_ptr} ----')
+            stack[stack_ptr] = op.operand
         else:
             assert False, f'interpret_program: unreachable_op: {op}'
 
@@ -145,7 +149,6 @@ class ParsingCommand(Enum):
     NEXT = auto(),
     PREV = auto(),
     INS = auto(),
-    CALL = auto(),
     NULL = auto(),
 
 def main():
@@ -163,8 +166,8 @@ def main():
     print(f'lines_str={repr(lines_str)} splitted={my_split(lines_str)}')
 
     #parsing
-    splinp: str = for_every_el(my_split(lines_str), lambda x: x.strip())
-    print(f'------ parsing... {len(splinp)} symbols ------')
+    splinp: str = my_split(lines_str)
+    print(f'------ parsing... {len(splinp)} commands ------')
     command: ParsingCommand = ParsingCommand.NULL
     program: Program = []
     line_num: int = 1
@@ -177,14 +180,14 @@ def main():
                         command = ParsingCommand.PLUS
                     case '-':
                         command = ParsingCommand.MINUS
-                    case '>':
+                    case 'next':
                         program.append(Next())
-                    case '<':
+                    case 'prev':
                         program.append(Prev())
-                    case '.':
+                    case 'print':
                         program.append(Print())
-                    case 'ea':
-                        print('f')
+                    case 'ins':
+                        command = ParsingCommand.INS
                     case '__NEW_LINE__':
                         line_num += 1
                         print(f'   New line! ip={ip} {line_num}')
@@ -196,11 +199,16 @@ def main():
                         print(f'parsing (line {line_num}): unreachable command: op={repr(op)} ip={ip}', file=sys.stderr)
                         exit(1)
             case ParsingCommand.PLUS:
-                command = Null()
+                command = ParsingCommand.NULL
                 program.append(Plus(int(op)))
             case ParsingCommand.MINUS:
-                command = Null()
+                command = ParsingCommand.NULL
                 program.append(Minus(int(op)))
+            case ParsingCommand.INS:
+                if op not in {'', ' '}:
+                    print(f'parseins: {repr(op)}')
+                    command = ParsingCommand.NULL
+                    program.append(Ins(int(op)))
             case _:
                 assert False, f'parsing (line {line_num}): unknown `command`: {command}'
     print(f'program={program}')
