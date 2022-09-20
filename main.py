@@ -1,10 +1,11 @@
-import sys
+from sys import *
 from typing import TypeVar, Sequence
 from enum import Enum, auto
 
 T: TypeVar = TypeVar('T')
 def myfilter(x: list[T], filt):
-    res: list[T] = []                                                                 for ip in range(len(x)):
+    res: list[T] = []
+    for ip in range(len(x)):
         op = x[ip]
         if filt(op):
             res.append(op)
@@ -57,24 +58,22 @@ def is_symbol(x: chr) -> bool:
         '_',
     ], x)
 
-def is_symbol_space(x: chr) -> bool:
-    return is_symbol(x) or x != ' '
-
 
 def my_split(operand: str) -> list[str]:
-    # >> .\nlll-_=838
-    # ['>> .\\', 'nll', '-', '_', '=', '838']
+    # '>> .\nlll-_=838'
+    # ['>>', '.\\', 'nll', '-', '_', '=', '838']
+    # 'a b c_-'
+    # ['a', 'b', 'c_', '-']
     res: list[str] = list[str]()
     tmp: bool = False
     for ip in range(len(operand)):
         op = operand[ip]
-        # if same state with prev in list
-        # (only not for first element)
-        if is_symbol_space(op) == tmp and ip > 0:
+        if op == ' ':
+            res.append(str())
+        elif is_symbol(op) == tmp and ip > 0:
             res[-1] += op
-        # if not same
         else:
-            tmp = is_symbol_space(op)
+            tmp = is_symbol(op)
             res.append(str())
             res[-1] = op
     return res
@@ -113,11 +112,13 @@ class Null(Command):
 Program: type = list[Command]
 
 def interpret_program(x: Program):
-    print(f'------ interpreting... ------')
+    print(f'------ interpreting {len(x)} commands... ------')
     stack: list[int] = [0]
     stack_ptr: int = 0
     for ip in range(len(x)):
         op = x[ip]
+
+        print(f'{ip}.', end=' ')
         if   isinstance(op, Plus):
             assert False, '`Plus` op is not implemented yet'
         elif isinstance(op, Minus):
@@ -151,23 +152,31 @@ class ParsingCommand(Enum):
     INS = auto(),
     NULL = auto(),
 
+def parsing_warning(msg: str = 'Unknown', line_num: int = -1):
+    print(f'parsing (line {line_num}): WARNING: {msg}')
+
+def parsing_error(msg: str = 'Unknown', line_num: int = -1):
+    print(f'parsing (line {line_num}): ERROR: {msg}')
+    exit(1)
+
 def main():
     lines: list[str] = []
     #read lines
     while True:
-        lines.append(input())
-        if lines[-1] == 'x':
+        lines.append(input('>>> '))
+        if lines[-1] == 'FILEEND':
             lines.pop()
             break
     print(f'--------------------')
 
     #join lines
     lines_str: str = ' __NEW_LINE__ '.join(lines)
-    print(f'lines_str={repr(lines_str)} splitted={my_split(lines_str)}')
+    print(f'lines_str={repr(lines_str)}')
+    print(f'splitted={my_split(lines_str)}')
 
     #parsing
     splinp: str = my_split(lines_str)
-    print(f'------ parsing... {len(splinp)} commands ------')
+    print(f'------ parsing {len(splinp)} words... ------')
     command: ParsingCommand = ParsingCommand.NULL
     program: Program = []
     line_num: int = 1
@@ -190,14 +199,12 @@ def main():
                         command = ParsingCommand.INS
                     case '__NEW_LINE__':
                         line_num += 1
-                        print(f'   New line! ip={ip} {line_num}')
                     case '':
-                        pass
+                        parsing_warning('Mysplit splitted operations and left extra empty string', line_num)
                     case ' ':
-                        pass
+                        parsing_warning('Mysplit splitted operations and left extra space string', line_num)
                     case _:
-                        print(f'parsing (line {line_num}): unreachable command: op={repr(op)} ip={ip}', file=sys.stderr)
-                        exit(1)
+                        parsing_error(f'Unknown command: {op}', line_num)
             case ParsingCommand.PLUS:
                 command = ParsingCommand.NULL
                 program.append(Plus(int(op)))
@@ -205,17 +212,14 @@ def main():
                 command = ParsingCommand.NULL
                 program.append(Minus(int(op)))
             case ParsingCommand.INS:
-                if op not in {'', ' '}:
-                    print(f'parseins: {repr(op)}')
-                    command = ParsingCommand.NULL
-                    program.append(Ins(int(op)))
+                command = ParsingCommand.NULL
+                program.append(Ins(int(op)))
             case _:
                 assert False, f'parsing (line {line_num}): unknown `command`: {command}'
-    print(f'program={program}')
     interpret_program(program)
 
 def test():
-    pass
+    print(my_split('>> .\nlll-_=838'))
 
 if __name__ == '__main__':
     main()
