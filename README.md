@@ -3,12 +3,12 @@ my programming language, btw
 
 Examples:
 
-'print next print ins 50 print prev print ins 99 print next next next'
+```print next print ins 50 print prev print ins 99 print next next next```
 
 Output:
 {some debug information}
 
------- interpreting... ------
+```------ interpreting... ------
 ---- print 0 ----
 0
 ---- next after=1 ----
@@ -25,4 +25,4 @@ Output:
 99
 ---- next after=1 ----
 ---- next after=2 ----
----- next after=3 ----
+---- next after=3 ----```
