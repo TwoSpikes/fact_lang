@@ -7,11 +7,9 @@ def myfilter(x: list[T], filt):
     res: list[T] = []
     for ip in range(len(x)):
         op = x[ip]
-        if filt(op):
-            res.append(op)
+        if filt(op):                                                                    res.append(op)
     return res
-
-T: TypeVar = TypeVar('T')
+                                                                            T: TypeVar = TypeVar('T')
 def for_every_el(x: list[T], filt) -> list[T]:
     res: list[T] = []
     for ip in range(len(x)):
@@ -20,15 +18,14 @@ def for_every_el(x: list[T], filt) -> list[T]:
     return res
 
 T: TypeVar = TypeVar('T')
-def my_list_eq(a: list[T], b: T) -> bool:
+def my_in(a: list[T], b: T) -> bool:
     for ip in range(len(a)):
         op = a[ip]
         if op == b:
             return True
-    return False
-
+    return False                                                            
 T: TypeVar = TypeVar('T')
-def my_list_list_eq(a: list[T], b: T) -> bool:
+def my_in_in(a: list[T], b: T) -> bool:
     for ip in range(len(a)):
         op = a[ip]
         for ij in range(len(op)):
@@ -36,6 +33,13 @@ def my_list_list_eq(a: list[T], b: T) -> bool:
             if oj == b:
                 return True
     return False
+
+T: TypeVar = TypeVar('T')
+def len_len(x: list[list[T]]) -> int:
+    res: int = 0
+    for ip in range(len(x)):
+        op = x[ip]                                                                  res += len(op)
+    return res
 
 def str_range(a: str, b: str) -> list[str]:
     return for_every_el(range(ord(a), ord(b) + 1), lambda x: chr(x))
@@ -50,11 +54,11 @@ def my_range(_min: T, _max: T, step: int = 1) -> list[T]:
     assert False, f'unknown type: {type(_min)}'
 
 def is_symbol(x: chr) -> bool:
-    return my_list_list_eq([
+    return my_in_in([
         str_range('a', 'z'),
         str_range('A', 'Z'),
         str_range('0', '9'),
-    ], x) or my_list_eq([
+    ], x) or my_in([
         '_',
     ], x)
 
@@ -62,20 +66,30 @@ def is_symbol(x: chr) -> bool:
 def my_split(operand: str) -> list[str]:
     # '>> .\nlll-_=838'
     # ['>>', '.\\', 'nll', '-', '_', '=', '838']
-    # 'a b c_-'
-    # ['a', 'b', 'c_', '-']
+    # 'a b c_- o -@-r'
+    # ['a', 'b', 'c_', '-', 'o', '-@-', 'r']
     res: list[str] = list[str]()
+    prev: bool = False
     tmp: bool = False
     for ip in range(len(operand)):
         op = operand[ip]
+        # if space
         if op == ' ':
-            res.append(str())
-        elif is_symbol(op) == tmp and ip > 0:
+            tmp = True
+            continue
+        # if space changed to symbol
+        if tmp:
+            tmp = False
+            res.append(op)
+            prev = is_symbol(op)
+            continue
+        # if stayed same (symbol)
+        if is_symbol(op) == prev:
             res[-1] += op
-        else:
-            tmp = is_symbol(op)
-            res.append(str())
-            res[-1] = op
+            continue
+    # if symbol state changed
+        prev = not prev
+        res.append(op)
     return res
 
 
@@ -146,9 +160,6 @@ def interpret_program(x: Program):
 class ParsingCommand(Enum):
     PLUS = auto(),
     MINUS = auto(),
-    PRINT = auto(),
-    NEXT = auto(),
-    PREV = auto(),
     INS = auto(),
     NULL = auto(),
 
@@ -159,29 +170,27 @@ def parsing_error(msg: str = 'Unknown', line_num: int = -1):
     print(f'parsing (line {line_num}): ERROR: {msg}')
     exit(1)
 
-def main():
-    lines: list[str] = []
-    #read lines
-    while True:
-        lines.append(input('>>> '))
-        if lines[-1] == 'FILEEND':
-            lines.pop()
-            break
-    print(f'--------------------')
+def parse_str_to_program(x: str) -> Program:
+    print(f'------ parsing {len(x)} words... ------')
+    print(f'joined={repr(x)}')
 
-    #join lines
-    lines_str: str = ' __NEW_LINE__ '.join(lines)
-    print(f'lines_str={repr(lines_str)}')
-    print(f'splitted={my_split(lines_str)}')
-
-    #parsing
-    splinp: str = my_split(lines_str)
-    print(f'------ parsing {len(splinp)} words... ------')
     command: ParsingCommand = ParsingCommand.NULL
+    comment: bool = False
+
     program: Program = []
     line_num: int = 1
-    for ip in range(len(splinp)):
-        op = splinp[ip]
+    for ip in range(len(x)):
+        op = x[ip]
+        if comment:
+            if op == '__NEW_LINE__':
+                comment = False
+                print('Ended com!')
+                continue
+        else:
+            if '#' in op:
+                comment = True
+                print('Started com!')
+                continue
         match command:
             case ParsingCommand.NULL:
                 match op:
@@ -212,14 +221,31 @@ def main():
                 command = ParsingCommand.NULL
                 program.append(Minus(int(op)))
             case ParsingCommand.INS:
-                command = ParsingCommand.NULL
-                program.append(Ins(int(op)))
+                if not comment:
+                    command = ParsingCommand.NULL
+                    program.append(Ins(int(op)))
             case _:
                 assert False, f'parsing (line {line_num}): unknown `command`: {command}'
-    interpret_program(program)
+    return program
+
+def parse_raw_input_to_str(x: list[str]) -> str:
+    return my_split(' __NEW_LINE__ '.join(x))
+
+def main():
+    lines: list[str] = []
+    #read lines
+    while True:
+        lines.append(input('>>> '))
+        if lines[-1] == 'FILEEND':
+            lines.pop()
+            break
+    print(f'--------------------')
+    print(f'------ splitting {len(lines)} lines ({len_len(lines)} symbols)... ------')
+    interpret_program(parse_str_to_program(parse_raw_input_to_str(lines)))
 
 def test():
-    print(my_split('>> .\nlll-_=838'))
+    # print(my_split('>> .\nlll-_=838'))
+    pass
 
 if __name__ == '__main__':
     main()
