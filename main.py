@@ -1,4 +1,4 @@
-from sys import *
+from sys import stdin, stdout
 from typing import TypeVar, Sequence
 from enum import Enum, auto
 
@@ -39,6 +39,13 @@ def my_in_in(a: list[T], b: T) -> bool:
                 return True
     return False
 
+def first_enter(a: list, b) -> int:
+    for ip in range(len(a)):
+        op = a[ip]
+        if op == b:
+            return ip
+    return -1
+
 T: TypeVar = TypeVar('T')
 def len_len(x: list[list[T]]) -> int:
     res: int = 0
@@ -77,10 +84,20 @@ def my_split(operand: str) -> list[str]:
     res: list[str] = list[str]()
     prev: bool = False
     tmp: bool = False
+    skip: int = 0
     for ip in range(len(operand)):
+        if skip:
+            skip -= 1
+            continue
         op = operand[ip]
-        # if space
-        if op == ' ':
+        match operand[ip]:
+            case '%':
+                match operand[ip + 1]:
+                    case '#':
+                        res.append(operand[ip: ip + 3])
+                        skip = 3
+                        continue
+        if op in {' ', '\n'}:
             tmp = True
             continue
         # if space changed to symbol
@@ -91,7 +108,8 @@ def my_split(operand: str) -> list[str]:
             continue
         # if stayed same (symbol)
         if is_symbol(op) == prev:
-            res[-1] += op
+            if len(res): res[-1] += op
+            else: res.append(op)
             continue
     # if symbol state changed
         prev = not prev
@@ -128,66 +146,83 @@ class Ins(Command):
 
 class Null(Command): pass
 
-Program: type = list[Command]
+class BinaryCommand(Enum):
+    PRINTL = auto(),
+    ADD  = auto(),
+    ADDL = auto(),
+    SUB  = auto()
+    SUBL = auto(),
+    MOV  = auto(),
+    NEW  = auto(),
+Program: type = tuple[list[BinaryCommand], list]
 
 def interpret_program(x: Program):
-    print(f'[*] interpreting {len(x)} commands...')
-    stack: list[int] = [0]
-    stack_ptr: int = 0
-    for ip in range(len(x)):
-        op = x[ip]
-        if isinstance(op, Plus):
-            assert False, '[#] `Plus` op is not implemented yet'
-            continue
-        if isinstance(op, Minus):
-            assert False, '[#] `Minus` op is not implemented yet'
-            continue
-        if isinstance(op, Next):
-            print(f'[$] Next ({stack_ptr + 1})')
-            stack_ptr += 1
-            if stack_ptr > len(stack) - 1:
+    print(f'[*] interpreting {len(x)} commands... ({x[1]})')
+    stack: list = list()
+    stack_ptr: int = -1
+    if not len(x):
+        return
+    for ip in range(len(x[0])):
+        op = x[0][ip]
+        match op:
+            case BinaryCommand.ADD:
+                assert False, '[#] `Plus` op is not implemented yet'
+                continue
+            case BinaryCommand.SUB:
+                assert False, '[#] `Minus` op is not implemented yet'
+                continue
+#            case BinaryCommand.NEXT:
+#                print(f'[$] Next ({stack_ptr + 1})')
+#                stack_ptr += 1
+#                if stack_ptr > len(stack) - 1:
+#                    stack.append(0)
+#                continue
+#            case BinaryCommand.PREV:
+#                print(f'[$] Prev ({stack_ptr - 1})')
+#                if stack_ptr <= 0:
+#                    print(f'[#] Stack underflow: {stack_ptr - 1}')
+#                exit(1)
+#                stack_ptr -= 1
+#                continue
+            case BinaryCommand.PRINTL:
+                index = x[1].pop()
+                print(f'[$] PTINTL ({index})')
+                print( stack[index] )
+                continue
+            case BinaryCommand.MOV:
+                index = x[1].pop()
+                operand = x[1].pop()
+                print(f'[$] MOV (i{index})(o{operand})')
+                stack[index] = operand
+                continue
+            case BinaryCommand.NEW:
+                print(f'[$] NEW ({stack_ptr + 1})')
                 stack.append(0)
-            continue
-        if isinstance(op, Prev):
-            print(f'[$] Prev ({stack_ptr - 1})')
-            if stack_ptr <= 0:
-                print(f'[#] Stack underflow: {stack_ptr - 1}')
-                exit(1)
-            stack_ptr -= 1
-            continue
-        if isinstance(op, PrintInt):
-            print(f'[$] Print ({op.operand})')
-            print( op.operand )
-            continue
-        if isinstance(op, Ins):
-            print(f'[$] Insert ({op.operand})')
-            stack[stack_ptr] = op.operand
-            continue
-        assert False, f'[#] interpret_program: unreachable_op: {op}'
-
-class ParsingCommand(Enum):
-    PLUS = auto(),
-    MINUS = auto(),
-    NEXT = auto(),
-    PREV = auto(),
-    PRINT = auto(),
-    PRINT_INT = auto(),
-    INS = auto(),
-    NULL = auto(),
-    NEWLINE = auto(),
-
-def parsing_warning(msg: str = 'Unknown', line_num: int = -1):
-    print(f'[!] parsing (line {line_num}): WARNING: {msg}')
-
-def parsing_error(msg: str = 'Unknown', line_num: int = -1):
-    global DEBUG_MODE
-    print(f'[!] parsing (line {line_num}): ERROR: {msg}')
-    if not DEBUG_MODE:
-        exit(1)
+            case _:
+                assert False, f'[#] interpret_program: unreachable_op: {op}'
 
 def parse_str_to_program(x: str) -> Program:
     print(f'[*] Parsing {len(x)} words...')
     print(f'[$] Joined={repr(x)}')
+
+    class ParsingCommand(Enum):
+        PLUS = auto(),
+        MINUS = auto(),
+        NEXT = auto(),
+        PREV = auto(),
+        PRINT = auto(),
+        INS = auto(),
+        NULL = auto(),
+        NEWLINE = auto(),
+
+    def parsing_warning(msg: str = 'Unknown', line_num: int = -1):
+        print(f'[!] parsing (line {line_num}): WARNING: {msg}')
+
+    def parsing_error(msg: str = 'Unknown', line_num: int = -1):
+        global DEBUG_MODE
+        print(f'[!] parsing (line {line_num}): ERROR: {msg}')
+        if not DEBUG_MODE:
+            exit(1)
 
     def parse_token_to_ParsingCommand(x: str, line_num: int = -1) -> ParsingCommand:
         match x:
@@ -197,83 +232,96 @@ def parse_str_to_program(x: str) -> Program:
             case 'prev': return ParsingCommand.PREV
             case 'print': return ParsingCommand.PRINT
             case 'ins': return ParsingCommand.INS
-            case '__NEW_LINE__': return ParsingCommand.NEWLINE
-            case '__DO_NOTHING__': return ParsingCommand.NULL
+            case '%#l': return ParsingCommand.NEWLINE
+            case '%#X': return ParsingCommand.NULL
             case '': parsing_error('Mysplit splitted operations and left extra empty string', line_num)
             case ' ': parsing_error('Mysplit splitted operations and left extra space string', line_num)
-            case _: parsing_error(f'Unknown command: {repr(x)}', line_num)
+            case _:
+                parsing_error(f'Unknown command: {repr(x)}', line_num)
+                return ParsingCommand.NULL
 
-    command: list = list()
     comment: bool = False
 
     program: list[ParsingCommand] = list[ParsingCommand]()
     line_num: int = 1
-    # op_ended: bool = False
 
-    res: list[Command] = list[Command]()
-    ip: int = 0
-    while ip in range(len(x)):
+    res: Program = ([], [])
+    skip: int = 0
+    addr: int = -1
+    for ip in range(len(x)):
+        if skip:
+            skip -= 1
+            continue
+
         op = x[ip]
         if comment:
-            if op == '__NEW_LINE__':
+            if op == '%#l':
                 comment = False
                 continue
         else:
-            if '#' in op:
+            if '#' in op and x[first_enter(op, '#')-1] != '%':
                 comment = True
                 continue
-        # if len(command) >= 1 and op_ended:
-        #     op_ended = False
         if len(program) >= 1:
             match program[0]:
                 case ParsingCommand.NULL: pass
                 case ParsingCommand.NEWLINE: line_num += 1
-                case ParsingCommand.PLUS:
-                    # operand: int = command.pop()
-                    # if op.isdigit():
-                    #     command.append(Plus(operand))
-                    return NotImplemented
+                case ParsingCommand.PLUS: return NotImplemented
                 case ParsingCommand.MINUS: return NotImplemented
                 case ParsingCommand.INS: return NotImplemented
+                case ParsingCommand.NEXT:
+                    print('parsenext')
                 case ParsingCommand.PRINT:
+                    print(f'parseprint: {op}')
                     if op.isdigit():
-                        command.append(int(op))
-                        program[-1] = ParsingCommand.PRINT_INT
-                        # op_ended = False
-                        x.append('__DO_NOTHING__')
-                        ip += 1
+                        res[0].append(BinaryCommand.NEW)
+
+                        res[0].append(BinaryCommand.MOV)
+                        addr += 1
+                        res[1].append(addr)
+                        print(f'addr{addr}')
+                        res[1].append(int(op))
+
+                        res[0].append(BinaryCommand.PRINTL)
+                        res[1].append(addr)
+
+                        skip = 1
                         continue
                     else: parsing_error(f'Print now is only for ints (This is {repr(op)} of type {type(op)})', line_num)
-                case ParsingCommand.PRINT_INT:
-                    program.pop()
-                    cmd: Command = command.pop()
-                    res.append(PrintInt(cmd))
                 case _: parsing_error(f'Unknown command: {op}', line_num)
         program.append(parse_token_to_ParsingCommand(op, line_num))
-        ip += 1
     return res
 
 def parse_raw_input_to_str(x: list[str]) -> str:
-    return my_split(' __NEW_LINE__ '.join(x))
+    return my_split(' %#l '.join(x))
 
 def main():
     VERSION_ARR: list[int] = [0, 0, 1]
     VERSION: str = '.'.join(for_every_el(VERSION_ARR, lambda x: str(x)))
-    print(f'Welcome to !lang of version: {VERSION}')
+    stdout.write(f'Welcome to !lang of version: {VERSION}\n')
 
     # read lines
+    stdout.write('>>> ')
+    stdout.flush()
     lines: list[str] = []
-    while True:
-        lines.append(input('>>> '))
-        if lines[-1] == 'FILEEND':
+    for op in stdin:
+        stdout.write('>>> ')
+        stdout.flush()
+        lines.append(f'{op}')
+        if lines[-1] == 'FILEEND\n':
             lines.pop()
             break
+    stdout.write('\n')
+
+    if lines == []:
+        print(f'No output!')
+        return
+
     print(f'[*] Splitting {len(lines)} lines ({len_len(lines)} symbols)...')
     interpret_program(parse_str_to_program(parse_raw_input_to_str(lines)))
 
 def test():
-    # print(my_split('>> .\nlll-_=838'))
-    pass
+    print(my_split('>> .\nlll-_=838'))
 
 if __name__ == '__main__':
     main()
