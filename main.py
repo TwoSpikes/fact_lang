@@ -13,7 +13,8 @@ def myfilter(x: list[T], filt):
             res.append(op)
     return res
 
-T: TypeVar = TypeVar('T')                                                         def for_every_el(x: list[T], filt) -> list[T]:
+T: TypeVar = TypeVar('T')
+def for_every_el(x: list[T], filt) -> list[T]:
     res: list[T] = []
     for ip in range(len(x)):
         op = x[ip]
@@ -83,6 +84,11 @@ def my_split(operand: str) -> list[str]:
                         res.append(operand[ip: ip + 3])
                         skip = 3
                         continue
+            case '#':
+                tmp = False
+                res.append(op)
+                prev = is_symbol(op)
+                continue
         if op in {' ', '\n'}:
             tmp = True
             continue
@@ -145,7 +151,6 @@ def interpret_program(x: Program):
 
 def parse_str_to_program(x: str) -> Program:
     print(f'[*] Parsing {len(x)} words...')
-    print(f'[$] Joined={repr(x)}')
 
     class ParsingCommand(Enum):
         PLUS = auto(),
@@ -201,9 +206,9 @@ def parse_str_to_program(x: str) -> Program:
         if comment:
             if op == '%#l':
                 comment = False
-                continue
+            continue
         else:
-            if '#' in op and x[first_enter(op, '#')-1] != '%':
+            if op == '#':
                 comment = True
                 continue
         if len(program):
@@ -213,11 +218,8 @@ def parse_str_to_program(x: str) -> Program:
                 case ParsingCommand.PLUS: return NotImplemented
                 case ParsingCommand.MINUS: return NotImplemented
                 case ParsingCommand.INS: return NotImplemented
-                case ParsingCommand.NEXT:
-                    print('parsenext')
-                    return NotImplemented
+                case ParsingCommand.NEXT: return NotImplemented
                 case ParsingCommand.PRINT:
-                    print(f'parseprint: i{addr+1} o{op}')
                     if op.isdigit():
                         res[0].append(BinaryCommand.NEW)
 
@@ -241,7 +243,7 @@ def parse_raw_input_to_str(x: list[str]) -> str:
 
 def main():
     VERSION_ARR: list[int] = [0, 0, 1]
-    VERSION_POSTFIX: str = '-rc1'
+    VERSION_POSTFIX: str = '-rc2'
     VERSION: str = '.'.join(for_every_el(VERSION_ARR, lambda x: str(x)))+VERSION_POSTFIX
     stdout.write(f'Welcome to !lang of version: {VERSION}\n')
 
