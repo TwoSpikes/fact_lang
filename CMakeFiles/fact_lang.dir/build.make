@@ -69,28 +69,28 @@ include CMakeFiles/fact_lang.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/fact_lang.dir/flags.make
 
-CMakeFiles/fact_lang.dir/main.cpp.o: CMakeFiles/fact_lang.dir/flags.make
-CMakeFiles/fact_lang.dir/main.cpp.o: main.cpp
-CMakeFiles/fact_lang.dir/main.cpp.o: CMakeFiles/fact_lang.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/data/com.termux/files/home/!lang/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/fact_lang.dir/main.cpp.o"
-	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/fact_lang.dir/main.cpp.o -MF CMakeFiles/fact_lang.dir/main.cpp.o.d -o CMakeFiles/fact_lang.dir/main.cpp.o -c /data/data/com.termux/files/home/!lang/main.cpp
+CMakeFiles/fact_lang.dir/src/main.cpp.o: CMakeFiles/fact_lang.dir/flags.make
+CMakeFiles/fact_lang.dir/src/main.cpp.o: src/main.cpp
+CMakeFiles/fact_lang.dir/src/main.cpp.o: CMakeFiles/fact_lang.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/data/data/com.termux/files/home/!lang/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/fact_lang.dir/src/main.cpp.o"
+	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/fact_lang.dir/src/main.cpp.o -MF CMakeFiles/fact_lang.dir/src/main.cpp.o.d -o CMakeFiles/fact_lang.dir/src/main.cpp.o -c /data/data/com.termux/files/home/!lang/src/main.cpp
 
-CMakeFiles/fact_lang.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fact_lang.dir/main.cpp.i"
-	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/data/com.termux/files/home/!lang/main.cpp > CMakeFiles/fact_lang.dir/main.cpp.i
+CMakeFiles/fact_lang.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/fact_lang.dir/src/main.cpp.i"
+	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /data/data/com.termux/files/home/!lang/src/main.cpp > CMakeFiles/fact_lang.dir/src/main.cpp.i
 
-CMakeFiles/fact_lang.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fact_lang.dir/main.cpp.s"
-	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/data/com.termux/files/home/!lang/main.cpp -o CMakeFiles/fact_lang.dir/main.cpp.s
+CMakeFiles/fact_lang.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/fact_lang.dir/src/main.cpp.s"
+	/data/data/com.termux/files/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /data/data/com.termux/files/home/!lang/src/main.cpp -o CMakeFiles/fact_lang.dir/src/main.cpp.s
 
 # Object files for target fact_lang
 fact_lang_OBJECTS = \
-"CMakeFiles/fact_lang.dir/main.cpp.o"
+"CMakeFiles/fact_lang.dir/src/main.cpp.o"
 
 # External object files for target fact_lang
 fact_lang_EXTERNAL_OBJECTS =
 
-fact_lang: CMakeFiles/fact_lang.dir/main.cpp.o
+fact_lang: CMakeFiles/fact_lang.dir/src/main.cpp.o
 fact_lang: CMakeFiles/fact_lang.dir/build.make
 fact_lang: CMakeFiles/fact_lang.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/data/data/com.termux/files/home/!lang/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable fact_lang"

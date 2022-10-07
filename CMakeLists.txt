@@ -3,4 +3,4 @@ project(fact_lang)
 
 set(CMAKE_CXX_STANDART 17)
 
-add_executable(fact_lang main.cpp)
+add_executable(fact_lang ./src/main.cpp)

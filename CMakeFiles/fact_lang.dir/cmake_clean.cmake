@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/fact_lang.dir/main.cpp.o"
-  "CMakeFiles/fact_lang.dir/main.cpp.o.d"
+  "CMakeFiles/fact_lang.dir/src/main.cpp.o"
+  "CMakeFiles/fact_lang.dir/src/main.cpp.o.d"
   "fact_lang"
   "fact_lang.pdb"
 )
