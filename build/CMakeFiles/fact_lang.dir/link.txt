@@ -1,0 +1,1 @@
+/data/data/com.termux/files/usr/bin/c++ -O2 -g -DNDEBUG CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o -o fact_lang 
