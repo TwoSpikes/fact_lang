@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o"
   "CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o.d"
+  "CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o"
+  "CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o.d"
   "fact_lang"
   "fact_lang.pdb"
 )

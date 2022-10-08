@@ -153,6 +153,30 @@ data/data/com.termux/files/home/!lang/src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/fact_lang.dir/build.make CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.s
 .PHONY : data/data/com.termux/files/home/!lang/src/main.cpp.s
 
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.o: data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.o
+
+# target to build an object file
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fact_lang.dir/build.make CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.o
+
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.i: data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.i
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.i
+
+# target to preprocess a source file
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fact_lang.dir/build.make CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.i
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.i
+
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.s: data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.s
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.s
+
+# target to generate assembly for a file
+data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/fact_lang.dir/build.make CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.s
+.PHONY : data/data/com.termux/files/home/!lang/src/parser/parse_argv.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +189,9 @@ help:
 	@echo "... data/data/com.termux/files/home/!lang/src/main.o"
 	@echo "... data/data/com.termux/files/home/!lang/src/main.i"
 	@echo "... data/data/com.termux/files/home/!lang/src/main.s"
+	@echo "... data/data/com.termux/files/home/!lang/src/parser/parse_argv.o"
+	@echo "... data/data/com.termux/files/home/!lang/src/parser/parse_argv.i"
+	@echo "... data/data/com.termux/files/home/!lang/src/parser/parse_argv.s"
 .PHONY : help
 
 

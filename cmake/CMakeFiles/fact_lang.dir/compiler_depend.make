@@ -136,8 +136,14 @@ CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o: /
   /data/data/com.termux/files/usr/include/bits/ctype_inlines.h \
   /data/data/com.termux/files/usr/include/c++/v1/wctype.h \
   /data/data/com.termux/files/usr/include/wctype.h \
-  /data/data/com.termux/files/home/!lang/src/globals/rust_types.hpp
+  /data/data/com.termux/files/usr/include/c++/v1/vector \
+  /data/data/com.termux/files/usr/include/c++/v1/__bit_reference \
+  /data/data/com.termux/files/usr/include/c++/v1/__split_buffer \
+  /data/data/com.termux/files/home/!lang/src/globals/rust_types.hpp \
+  /data/data/com.termux/files/home/!lang/src/parser/parse_argv.hpp
 
+
+/data/data/com.termux/files/home/!lang/src/parser/parse_argv.hpp:
 
 /data/data/com.termux/files/home/!lang/src/globals/rust_types.hpp:
 
@@ -333,6 +339,8 @@ CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o: /
 
 /data/data/com.termux/files/usr/lib/clang/15.0.2/include/float.h:
 
+/data/data/com.termux/files/usr/include/c++/v1/__bit_reference:
+
 /data/data/com.termux/files/usr/include/sys/types.h:
 
 /data/data/com.termux/files/usr/lib/clang/15.0.2/include/stdarg.h:
@@ -344,6 +352,8 @@ CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o: /
 /data/data/com.termux/files/usr/include/asm-generic/signal-defs.h:
 
 /data/data/com.termux/files/usr/include/string.h:
+
+/data/data/com.termux/files/usr/include/c++/v1/vector:
 
 /data/data/com.termux/files/usr/include/linux/time.h:
 
@@ -360,6 +370,8 @@ CMakeFiles/fact_lang.dir/data/data/com.termux/files/home/!lang/src/main.cpp.o: /
 /data/data/com.termux/files/usr/include/c++/v1/stddef.h:
 
 /data/data/com.termux/files/usr/include/stdio.h:
+
+/data/data/com.termux/files/usr/include/c++/v1/__split_buffer:
 
 /data/data/com.termux/files/usr/include/bits/wchar_limits.h:
 
