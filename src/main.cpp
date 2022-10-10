@@ -7,8 +7,8 @@
 
 int main(int argc, char** argv) {
   std::vector<std::string> tmp = parse_argv(argc, argv);
-  for(u32 i{}; i < tmp.size(); ++i) {
-    printf("%s", tmp[i].c_str());
+  for(std::string i : tmp) {
+    printf("%s", i.c_str());
   }
   return 0;
 }
