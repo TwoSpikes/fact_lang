@@ -1,3 +1,0 @@
-/data/data/com.termux/files/home/!lang/cmake/CMakeFiles/fact_lang.dir
-/data/data/com.termux/files/home/!lang/cmake/CMakeFiles/edit_cache.dir
-/data/data/com.termux/files/home/!lang/cmake/CMakeFiles/rebuild_cache.dir
