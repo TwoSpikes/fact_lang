@@ -1,4 +1,4 @@
-# Install script for directory: /data/data/com.termux/files/home/!lang/cmake
+# Install script for directory: /data/data/com.termux/files/home/!lang/build
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/data/data/com.termux/files/home/!lang/cmake/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/data/data/com.termux/files/home/!lang/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
