@@ -1,6 +1,3 @@
-My programming language in c++
-
-to build:
-` cmake --build cmake ` or ` ./build.sh `
+My programming language in nim
 
 IT IS NOT IMPLEMENTED YET
