@@ -8,6 +8,6 @@ include_directories(include)
 
 add_executable( fact_lang
   ../src/main.cpp
-  ../src/lexer/parse_argv.cpp
-  ../src/lexer/parse_one_argv.cpp
+  ../src/lexer/get_argv.cpp
+  ../src/lexer/get_one_argv.cpp
 )
