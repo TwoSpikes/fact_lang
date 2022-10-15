@@ -10,4 +10,5 @@ add_executable( fact_lang
   ../src/main.cpp
   ../src/lexer/get_argv.cpp
   ../src/lexer/get_one_argv.cpp
+  ../src/lexer/handle_argv.cpp
 )
