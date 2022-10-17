@@ -4,8 +4,10 @@
 #include <vector>
 #include <string>
 
-void handle_argv(std::vector<std::string> argv) {
+#include "./handle_one_argv.hpp"
+
+void handle_argv(std::vector<std::string> &argv) {
   for(auto i = argv.begin(); i != argv.end(); ++i) {
-    std::cout << *i << std::endl;
+    handle_one_argv(*i);
   }
 }

@@ -3,4 +3,4 @@
 #include <vector>
 #include <string>
 
-void handle_argv(std::vector<std::string> &argv);
+void handle_option(std::string &option);
