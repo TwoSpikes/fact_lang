@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdlib.h>
+
 typedef int8_t  i8;
 typedef int16_t i16;
 typedef int32_t i32;
@@ -10,13 +12,12 @@ typedef u_int16_t u16;
 typedef u_int32_t u32;
 typedef u_int64_t u64;
 
+typedef int8_t  I1;
+typedef int16_t I2;
+typedef int32_t I4;
+typedef int64_t I8;
 
-typedef i8  I1;
-typedef i16 I2;
-typedef i32 I4;
-typedef i64 I8;
-
-typedef u8  U1;
-typedef u16 U2;
-typedef u32 U4;
-typedef u64 U8;
+typedef u_int8_t  U1;
+typedef u_int16_t U2;
+typedef u_int32_t U4;
+typedef u_int64_t U8;
