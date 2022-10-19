@@ -1,5 +1,6 @@
 #include "./handle_one_argv.hpp"
 
+#include <iostream>
 #include <string>
 
 #include "./handle_option.hpp"

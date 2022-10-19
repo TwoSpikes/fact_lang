@@ -3,8 +3,12 @@
 #include <iostream>
 #include <string>
 
+#include "../conf/main.hpp"
+
+#include "./cut_until_equal.hpp"
+
 void handle_option(std::string &option) {
-  if(option.compare("i") == 0) {
-    std::cout << 'i';
+  if(cut_until_equal(option).compare("d") == 0) {
+    std::cout << 'd';
   }
 }
