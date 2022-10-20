@@ -9,6 +9,6 @@
 
 void handle_option(std::string &option) {
   if(cut_until_equal(option).compare("d") == 0) {
-    std::cout << 'd';
+    std::cout << ;
   }
 }
