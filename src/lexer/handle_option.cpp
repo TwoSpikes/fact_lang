@@ -6,9 +6,12 @@
 #include "../conf/main.hpp"
 
 #include "./cut_until_equal.hpp"
+#include "./cut_from_equal.hpp"
 
 void handle_option(std::string &option) {
-  if(cut_until_equal(option).compare("d") == 0) {
-    std::cout << ;
+  auto optionName { new std::string( cut_until_equal(option) ) };
+  if(optionName.compare("d") == 0) {
+    auto optionValue { new std::string( cut_from_equal(option) ) };
+    std::cout << optionValue;
   }
 }

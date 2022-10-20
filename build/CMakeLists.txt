@@ -14,4 +14,5 @@ add_executable( fact_lang
   ../src/lexer/handle_one_argv.cpp
   ../src/lexer/handle_option.cpp
   ../src/lexer/cut_until_equal.cpp
+  ../src/lexer/cut_from_equal.cpp
 )
