@@ -3,6 +3,15 @@
 #include <iostream>
 #include <string>
 
+bool can_str_to_bool(std::string &src) {
+  try {
+    str_to_bool(src);
+    return true;
+  } catch(...) {
+    return false;
+  }
+}
+
 bool str_to_bool(std::string &src) {
   if(
     !src.compare("true") ||
