@@ -1,5 +1,6 @@
 #include "./str_to_bool.hpp"
 
+#include <boost/format.hpp>
 #include <iostream>
 #include <string>
 
@@ -27,7 +28,7 @@ bool str_to_bool(std::string &src) {
   ) {
     return false;
   }
-  throw -1;
+  throw boost::str(boost::format("Unknown value for `string` to `bool` conversion: `%1%` (must be `true`, `yes`, `1`, `false`, `no` or `0`)\n") % src);
 }
 
 bool str_to_bool(std::string &src, bool alt) {

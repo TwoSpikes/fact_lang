@@ -15,6 +15,6 @@ std::string cut_from_equal(std::string &src) {
 	return res;
       }
     }
-    return *new std::string;
+    throw -1;
   }
 }

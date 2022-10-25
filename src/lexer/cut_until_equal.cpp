@@ -13,5 +13,5 @@ std::string cut_until_equal(std::string &string) {
     if(*it == '=')
       return string.substr(0,(u64)i);
   
-  return string;
+  throw -1;
 }
