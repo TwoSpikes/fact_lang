@@ -1,0 +1,3 @@
+October 2022 (30):
+  Trace `-d` option and it's value.
+  Print output of given file(-s).
