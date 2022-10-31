@@ -1,3 +1,4 @@
-October 2022 (30):
+October 2022 (31):
   Trace `-d` option and it's value.
   Print output of given file(-s).
+  Can print semicolon indexes of given file(-s).

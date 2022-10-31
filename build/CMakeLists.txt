@@ -20,6 +20,7 @@ set(SOURCE_FILES
   ../src/lexer/str_to_bool.cpp
   ../src/lexer/handle_filename.cpp
   ../src/lexer/HandleFile.cpp
+  ../src/lexer/MarkStatements.cpp
 )
 
 include_directories(include)
