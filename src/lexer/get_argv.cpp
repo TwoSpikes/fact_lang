@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "../globals/rust_types.hpp"
+#include "../globals/rust_types.h"
 
 #include "../lexer/get_one_argv.hpp"
 

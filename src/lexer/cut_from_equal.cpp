@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "../globals/rust_types.hpp"
+#include "../globals/rust_types.h"
 
 std::string &cut_from_equal(std::string &src) {
   {

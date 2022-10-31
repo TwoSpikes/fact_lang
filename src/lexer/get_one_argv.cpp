@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "../globals/rust_types.hpp"
+#include "../globals/rust_types.h"
 
 std::string &get_one_argv(char* argv) {
   auto &res = *new std::string();

@@ -21,3 +21,5 @@ typedef u_int8_t  U1;
 typedef u_int16_t U2;
 typedef u_int32_t U4;
 typedef u_int64_t U8;
+
+typedef size_t usize;
