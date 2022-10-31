@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-std::vector<size_t> MarkStatements(std::string file) {
+std::vector<size_t> &MarkStatements(std::string file) {
   auto &res = *new std::vector<size_t>;
   {
     size_t i = 0;

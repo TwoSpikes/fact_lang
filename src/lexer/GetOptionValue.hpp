@@ -2,4 +2,4 @@
 
 #include <string>
 
-std::string GetOptionValue(std::string &option);
+std::string &GetOptionValue(std::string &option);

@@ -5,13 +5,15 @@
 
 #include "../globals/rust_types.hpp"
 
-std::string cut_from_equal(std::string &src) {
+std::string &cut_from_equal(std::string &src) {
   {
     u32  i  { };
     auto it { src.begin() };
     for(; it != src.end(); ++it, ++i) {
       if(*it == '=') {
-	auto &res { *new std::string(src.substr((u64)i+1)) };
+	auto &res {
+	  *new std::string(src.substr((u64)i+1))
+	};
 	return res;
       }
     }

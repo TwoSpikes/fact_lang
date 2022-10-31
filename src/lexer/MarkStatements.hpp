@@ -3,4 +3,4 @@
 #include <string>
 #include <vector>
 
-std::vector<size_t> MarkStatements(std::string file);
+std::vector<size_t> &MarkStatements(std::string file);

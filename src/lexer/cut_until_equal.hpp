@@ -2,4 +2,4 @@
 
 #include <string>
 
-std::string cut_until_equal(std::string &string);
+std::string &cut_until_equal(std::string &string);

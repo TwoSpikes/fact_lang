@@ -4,7 +4,7 @@
 
 #include "./cut_from_equal.hpp"
 
-std::string GetOptionValue(std::string &option) {
+std::string &GetOptionValue(std::string &option) {
   try {
     return cut_from_equal(option);
   } catch(...) {
