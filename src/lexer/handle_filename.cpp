@@ -5,7 +5,7 @@
 #include <fstream>
 #include <string>
 
-#include "./HandleFile.hpp"
+#include "../parser/HandleFile.hpp"
 
 void handle_filename(std::string &filename) {
   std::ifstream istrm(filename, std::ios::binary);
