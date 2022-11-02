@@ -15,8 +15,11 @@ void HandleFile(std::string &file) {
 	auto it = marked.begin();
 	it != marked.end();
 	++it
-	)
+	) {
       std::cout << *it << ", ";
+      
+    }
+      
     std::cout << " }" << std::endl;
   }
   std::cout << file << std::endl;
