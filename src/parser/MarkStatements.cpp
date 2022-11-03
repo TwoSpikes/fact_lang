@@ -3,13 +3,16 @@
 #include <string>
 #include <vector>
 
+#include "../globals/rust_types.h"
+
 std::vector<size_t> &MarkStatements(std::string file) {
   auto &res = *new std::vector<size_t>;
   {
-    size_t i = 0;
+    usize i = 0;
+    usize j = 0;
     for(auto it = file.begin(); it != file.end(); ++it, ++i) {
       if(*it == ';') {
-	res.push_back(i);
+	res.push_back(j += i);
       }
     }
   }

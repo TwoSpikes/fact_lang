@@ -5,22 +5,21 @@
 #include <string>
 
 #include "./MarkStatements.hpp"
+#include "./ToOperators.hpp"
 
 void HandleFile(std::string &file) {
-  {
-    auto marked = MarkStatements(file);
-    std::cout << marked.size() << std::endl;
-    std::cout << "{ ";
-    for(
-	auto it = marked.begin();
-	it != marked.end();
-	++it
-	) {
-      std::cout << *it << ", ";
-      
-    }
-      
-    std::cout << " }" << std::endl;
+  auto marked = MarkStatements(file);
+  auto &tmp = *new std::string(file);
+  for( auto it = marked.begin();
+       it != marked.end();
+       ++it                     ) {
+    std::cout << *it << ",";
   }
-  std::cout << file << std::endl;
+  std::cout << "\n------\n" << file << std::endl;
+  for( auto it = marked.begin();
+       it != marked.end();
+       ++it                     ) {
+    std::cout << ToOperators(tmp = tmp.substr(*it)).GetName();
+  }
+  std::cout << "\n------\n" << file << std::endl;
 }

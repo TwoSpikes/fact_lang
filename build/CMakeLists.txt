@@ -21,6 +21,7 @@ set(SOURCE_FILES
   ../src/lexer/handle_filename.cpp
   ../src/parser/HandleFile.cpp
   ../src/parser/MarkStatements.cpp
+  ../src/parser/Operator.cpp
   ../src/parser/ToOperators.cpp
 )
 
