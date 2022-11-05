@@ -6,6 +6,8 @@
 
 #include "./Operator.hpp"
 
-Operator &ToOperators(std::string &src) {
-  return *new SpecificOperator<u8, u8, u8>("+");
+BasedOperator &ToOperators(std::string &src) {
+  return *new Operator<u8, u8, u8>("+", [](u8 a, u8 b) -> u8 {
+    return a + b;
+  });
 }

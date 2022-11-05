@@ -4,4 +4,4 @@
 
 #include "./Operator.hpp"
 
-Operator &ToOperators(std::string &src);
+BasedOperator &ToOperators(std::string &src);
