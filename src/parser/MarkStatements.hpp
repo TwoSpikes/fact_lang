@@ -3,4 +3,6 @@
 #include <string>
 #include <vector>
 
-std::vector<size_t> &MarkStatements(std::string file);
+#include "../globals/rust_types.h"
+
+std::vector<usize> &MarkStatements(std::string file);

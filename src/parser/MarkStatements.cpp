@@ -5,7 +5,7 @@
 
 #include "../globals/rust_types.h"
 
-std::vector<size_t> &MarkStatements(std::string file) {
+std::vector<usize> &MarkStatements(std::string file) {
   auto &res = *new std::vector<size_t>;
   {
     usize i = 0;

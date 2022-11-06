@@ -2,4 +2,6 @@
 
 #include <string>
 
-void HandleFile(std::string &file);
+#include "./Operator.hpp"
+
+void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList);

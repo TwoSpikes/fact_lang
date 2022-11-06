@@ -5,7 +5,6 @@
 class BasedOperator {
 public:
   virtual std::string &GetName() const noexcept = 0;
-  virtual void operator() = 0;
 };
 
 template <typename ReturnType, typename... Types>

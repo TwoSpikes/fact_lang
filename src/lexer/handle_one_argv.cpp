@@ -1,6 +1,7 @@
 #include "./handle_one_argv.hpp"
 
 #include <iostream>
+#include <vector>
 #include <string>
 
 #include "./GetOptionName.hpp"
@@ -8,7 +9,9 @@
 #include "./handle_option.hpp"
 #include "./handle_filename.hpp"
 
-void handle_one_argv(std::string &argv) {
+#include "../parser/Operator.hpp"
+
+void handle_one_argv(std::string &argv, std::vector<BasedOperator*> &operatorList) {
   if(argv[0] == '-') {
     handle_option(
       *new std::string(GetOptionName(argv).substr(1)),
@@ -16,5 +19,5 @@ void handle_one_argv(std::string &argv) {
     );
     return;
   }
-  handle_filename(argv);
+  handle_filename(argv, operatorList);
 };
