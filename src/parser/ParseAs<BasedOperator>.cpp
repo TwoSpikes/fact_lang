@@ -1,4 +1,4 @@
-#include "./ToOperators.hpp"
+#include "./ParseAs<BasedOperator>.hpp"
 
 #include <boost/format.hpp>
 
@@ -10,11 +10,11 @@
 
 #include "./Operator.hpp"
 
-BasedOperator &ToOperators(std::string src, std::vector<BasedOperator*> &operatorList) {
+BasedOperator &ParseAs(std::string src, std::vector<BasedOperator*> &operatorList) {
   for(auto it = operatorList.begin();
       it != operatorList.end();
       ++it) {
-    if(!((*it)->GetName().compare(src))) {
+    if( !((*new std::string((*it)->GetName.value)).compare(src)) ) {
       return **it;
     }
   }

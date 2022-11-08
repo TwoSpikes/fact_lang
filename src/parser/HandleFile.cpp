@@ -5,8 +5,9 @@
 #include <string>
 
 #include "../globals/rust_types.h"
+#include "../globals/StringLiteral.hpp"
 
-#include "./ToOperators.hpp"
+#include "./ParseAs<BasedOperator>.hpp"
 #include "./Operator.hpp"
 
 void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList) {
@@ -20,8 +21,8 @@ void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList) {
 	 ++f, ++i ) {
       if( *f == ';' ) {
 	try {
-	  std::cout << ToOperators(file.substr(m, i-m),
-	  			   operatorList).GetName() <<
+	  StringLiteral tmp = ParseAs(file.substr(m, i-m), operatorList).GetName;
+	  std::cout << tmp.value <<
 	    std::endl;
 	} catch (std::string &e) {
 	  std::cout << e << std::endl;

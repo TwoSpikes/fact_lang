@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-set(CMAKE_CXX_STANDART 20)
+set(CMAKE_CXX_STANDARD 20)
 
 project(fact_lang)
 
@@ -7,6 +7,9 @@ set(YOUR_DIRECTORY ../src)
 
 set(SOURCE_FILES
   ../src/main.cpp
+  #../src/globals/CountTypes.hpp
+  ../src/globals/StringLiteral.hpp
+  ../src/globals/are_same.hpp
   ../src/lexer/get_argv.cpp
   ../src/lexer/get_one_argv.cpp
   ../src/lexer/handle_argv.cpp
@@ -21,7 +24,8 @@ set(SOURCE_FILES
   ../src/lexer/handle_filename.cpp
   ../src/parser/HandleFile.cpp
   ../src/parser/Operator.cpp
-  ../src/parser/ToOperators.cpp
+  ../src/parser/Operation.cpp
+  ../src/parser/ParseAs<BasedOperator>.cpp
 )
 
 include_directories(include)
