@@ -3,11 +3,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "../globals/rust_types.h"
 #include "../globals/StringLiteral.hpp"
 
-#include "./ParseAs<BasedOperator>.hpp"
+#include "./Parse.hpp"
 #include "./Operator.hpp"
 
 void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList) {
@@ -21,13 +22,14 @@ void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList) {
 	 ++f, ++i ) {
       if( *f == ';' ) {
 	try {
-	  StringLiteral tmp = ParseAs(file.substr(m, i-m), operatorList).GetName;
-	  std::cout << tmp.value <<
-	    std::endl;
+	  Parse(file.substr(m, i-m), operatorList, true);
 	} catch (std::string &e) {
-	  std::cout << e << std::endl;
-	}
-	m = i+1;
+	  std::cout << e;
+	} catch (u8 src) {
+	  std::cout << (int)src;
+	} catch (BasedOperator *src) {
+	  std::cout << "Operator: " << src->GetName() << std::endl;
+	} catch (nullptr_t) { }
       }
     }
   }

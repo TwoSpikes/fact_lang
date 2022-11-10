@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -11,8 +11,7 @@
 int main(int argc, char** argv) {
   auto &operatorList = *new std::vector<BasedOperator*>;
   {
-    //constexpr std::string_view operatorName = "+";
-    operatorList.push_back(new Operator<"+", u8, u8, u8>([](std::vector<void*> const &) -> u8* {
+    operatorList.push_back(new Operator<u8, u8, u8>("+", [](std::vector<void*> const &) -> u8* {
       return new u8;
     }));
   }

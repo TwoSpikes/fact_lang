@@ -1,4 +1,8 @@
 #pragma once
 
+#include <string>
+
+#include "./Operator.hpp"
+
 template <typename T>
-BasedOperator &ParseAs(std::string &src, std::vector<BasedOp*> &opList);
+T &ParseAs(std::string &src);

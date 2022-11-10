@@ -6,9 +6,8 @@
 
 template<size_t N>
 struct StringLiteral {
-    inline constexpr StringLiteral(const char (&str)[N]) {
-        std::copy_n(str, N, value);
-    }
-    
-    char value[N];
+  char value[N];
+  inline constexpr StringLiteral(const char (&str)[N]) {
+    std::copy_n(str, N, value);
+  }
 };
