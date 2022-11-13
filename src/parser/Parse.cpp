@@ -18,7 +18,7 @@ void Parse(std::string src, std::vector<BasedOperator*> &operatorList, bool clea
     stack = 0;
     std::cout << "New ";
   }
-  if(!src.length()) { throw NULL; }
+  if(!src.length()) { throw nullptr; }
   std::cout << "Parsing... src=\"" << src << "\" stack=" << (int)stack << '\n';
 
   //if space
@@ -53,14 +53,14 @@ void Parse(std::string src, std::vector<BasedOperator*> &operatorList, bool clea
   // Parse as Operator
   try {
     auto tmp = ParseAs(src, operatorList);
-    if(std::get<1>(tmp)-1 < src.length()) {
-      throw std::get<0>(tmp);
-    }
-    return Parse(src.substr(std::get<1>(tmp)+1), operatorList);
+    throw std::get<0>(tmp);
+    try {
+      Parse(src.substr(std::get<1>(tmp)+1), operatorList);
+    } catch (...) { throw; }
   } catch(std::string &e) {
     throw;
   }
 
   std::cout << "  Final stack: " << (int)stack << std::endl;
-  throw NULL;
+  throw nullptr;
 }

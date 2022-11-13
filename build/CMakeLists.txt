@@ -32,6 +32,7 @@ set(SOURCE_FILES
   ../src/parser/ParseAs<u8>.cpp
   ../src/parser/ParseAs.hpp
   ../src/parser/Parse.cpp
+  ../src/parser/TryParse.cpp
 )
 
 include_directories(include)
