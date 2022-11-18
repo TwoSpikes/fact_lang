@@ -29,7 +29,7 @@ void HandleFile(std::string &file, std::vector<BasedOperator*> &operatorList) {
 	   it != file.end();
 	   ++it, ++i ) {
 	if( *it == ';' ) {
-	  TryParse(file.substr(ip+1, i-ip-1), operatorList, true);
+	  TryParse(file.substr(ip+1, i-ip-1), operatorList);
 	  ip = i;
 	}
       }

@@ -18,7 +18,7 @@ bool IsValid(char src) {
 	    src <= '9'));
 }
 
-std::tuple<BasedOperator *, usize> ParseAs(std::string src, std::vector<BasedOperator*> &operatorList) {
+std::pair<BasedOperator *, usize> ParseAs(std::string src, std::vector<BasedOperator*> &operatorList) {
   std::cout << "Parseasop: \"" << src << "\"\n";
   
   bool beenValidSymbol = false;
@@ -32,10 +32,9 @@ std::tuple<BasedOperator *, usize> ParseAs(std::string src, std::vector<BasedOpe
 	beenValidSymbol = true;
       }
       if(!isValid && (beenValidSymbol || *it == src[src.length()-1])) {
-	for(auto it = operatorList.begin(); it != operatorList.end();
-	    ++it) {
-	  if(it[0]->GetName().compare(src))
-	    return {*it, i};
+	for(auto it: operatorList) {
+	  if(it->GetName().compare(src))
+	    return {it, i};
 	}
 	throw *new std::string(boost::str(boost::format("Operator not found: \"%1%\"\n") % src));
       }

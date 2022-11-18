@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include <utility>
 
+#include "./Operation.hpp"
 #include "./Operator.hpp"
 
-void Parse(std::string src, std::vector<BasedOperator*> &operatorList, bool clearStack = false);
+std::vector<BasedOperation*> &Parse(std::string src, std::vector<BasedOperator*> &operatorList);

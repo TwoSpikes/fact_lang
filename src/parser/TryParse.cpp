@@ -7,9 +7,9 @@
 #include "./Parse.hpp"
 #include "./Operator.hpp"
 
-void TryParse(std::string src, std::vector<BasedOperator *> &operatorList, bool clearStack) {
+void TryParse(std::string src, std::vector<BasedOperator *> &operatorList) {
   try {
-    Parse(src, operatorList, true);
+    Parse(src, operatorList);
   } catch (std::string &e) {
     std::cout << e;
   } catch (u8 src) {

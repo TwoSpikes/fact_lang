@@ -11,6 +11,10 @@ set(SOURCE_FILES
   ../src/globals/CountTypes.hpp
   ../src/globals/StringLiteral.hpp
   ../src/globals/are_same.hpp
+  ../src/globals/shift_t.cpp
+
+  ../src/globals/Exception.hpp
+  ../src/parser/ParsingException.hpp
   
   ../src/lexer/get_argv.cpp
   ../src/lexer/get_one_argv.cpp
@@ -32,6 +36,7 @@ set(SOURCE_FILES
   ../src/parser/ParseAs<u8>.cpp
   ../src/parser/ParseAs.hpp
   ../src/parser/Parse.cpp
+  ../src/parser/ParseToken.cpp
   ../src/parser/TryParse.cpp
 )
 

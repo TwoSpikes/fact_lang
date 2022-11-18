@@ -7,4 +7,4 @@
 
 #include "./Operator.hpp"
 
-void TryParse(std::string src, std::vector<BasedOperator *> &operatorList, bool clearStack = false);
+void TryParse(std::string src, std::vector<BasedOperator *> &operatorList);

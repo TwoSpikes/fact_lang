@@ -1,6 +1,8 @@
 #pragma once
 
+#include <stdlib.h>
 #include <string>
+#include <utility>
 
 #include "../globals/rust_types.h"
 
@@ -8,4 +10,4 @@
 #include "./Operator.hpp"
 
 template <>
-u8 &ParseAs<u8>(std::string &src);
+std::pair<u8, size_t> &ParseAs<u8>(std::string &src);

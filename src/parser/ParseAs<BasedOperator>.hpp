@@ -1,9 +1,10 @@
 #pragma once
 
+#include <stdlib.h>
 #include <vector>
 #include <string>
 
 #include "./Operator.hpp"
 #include "./ParseAs.hpp"
 
-std::tuple<BasedOperator *, usize> ParseAs(std::string src, std::vector<BasedOperator*> &operatorList);
+std::pair<BasedOperator *, size_t> ParseAs(std::string src, std::vector<BasedOperator*> &operatorList);

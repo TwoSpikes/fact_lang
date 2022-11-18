@@ -1,8 +1,10 @@
 #pragma once
 
+#include <stdlib.h>
 #include <string>
+#include <utility>
 
 #include "./Operator.hpp"
 
 template <typename T>
-T &ParseAs(std::string &src);
+std::pair<T, size_t> &ParseAs(std::string &src);
