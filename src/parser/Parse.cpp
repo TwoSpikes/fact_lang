@@ -13,26 +13,25 @@
 #include "./ParseToken.hpp"
 
 std::vector<BasedOperation*> &Parse(std::string src, std::vector<BasedOperator*> &operatorList) {
-  //parse as u8
   auto &opStack = *new std::vector<BasedOperation*>;
-  std::cout << "Parse(src=\"" << src << "\")!\n";
+  std::cout << "[~] Parse src=\"" << src << "\"\n";
   shift_t tmp(0);
   for(; tmp < src.length();) {
     try {
       ParseToken(*new std::string(src.substr(tmp)), operatorList);
-    } catch (u8 e) {
-      opStack.push_back(new ConstOperation<u8>(e));
     } catch (shift_t &e) {
       tmp += e;
+    } catch (std::pair<ConstOperation<u8>, shift_t &> &e) {
+      std::cout << "  Parse: u8: " << e.first.GetVal() << std::endl;
+      tmp += e.second;
+    } catch (std::pair<BasedOperator *, shift_t> &e) {
+      std::cout << "  Parse: Operator: " << e.first << std::endl;
+      tmp += e.second;
     } catch (ParsingException &e) {
-      std::cout << "Parse: catch: ParsingException\n";
-      break;
-    } catch (...) { throw; }
+      std::cout << "  Parse: catch: ParsingException\n";
+      return opStack;
+    } catch (...) { std::cout << "[#] Parse: ParseToken: Unreachable\n"; throw; }
   }
-
-  //parse as operator
-
-  return opStack;
 }
 
 

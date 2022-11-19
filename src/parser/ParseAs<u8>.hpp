@@ -7,7 +7,7 @@
 #include "../globals/rust_types.h"
 
 #include "./ParseAs.hpp"
-#include "./Operator.hpp"
+#include "./Operation.hpp"
 
 template <>
-std::pair<u8, size_t> &ParseAs<u8>(std::string &src);
+std::pair<ConstOperation<u8>, size_t> *ParseAs<u8>(std::string &src);

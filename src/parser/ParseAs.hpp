@@ -4,7 +4,7 @@
 #include <string>
 #include <utility>
 
-#include "./Operator.hpp"
+#include "./Operation.hpp"
 
 template <typename T>
-std::pair<T, size_t> &ParseAs(std::string &src);
+std::pair<ConstOperation<T>, size_t> *ParseAs(std::string &src);

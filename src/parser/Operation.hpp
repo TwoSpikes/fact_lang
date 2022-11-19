@@ -10,49 +10,45 @@
 class BasedOperation {
 public:
   virtual std::string const GetName() const noexcept = 0;
-  inline virtual void *operator() (std::vector<void*> const &, std::vector<void*> const &) const {
-    throw -1;
-  }
-  inline virtual void *operator() () const {
-    throw -1;
-  }
 };
 
+class BasedConstOperation: public BasedOperation {
+public:
+  virtual void *GetVal() const noexcept = 0;
+};
+
+class BasedOperatorOperation: public BasedOperation {
+public:
+  virtual std::vector<BasedConstOperation *> &GetSrc() const noexcept = 0;
+};
+
+//plain numbers
 template <typename T>
-class ConstOperation: public BasedOperation {
+class ConstOperation final: public BasedConstOperation {
 private:
   T *val;
   std::string const name;
 public:
-  inline std::string const GetName() const noexcept override {
+  inline std::string const GetName() const noexcept override final {
     return this->name;
   }
-  inline virtual void *operator() () const override {
+  inline void *GetVal() const noexcept override final {
     return this->val;
   }
-  inline ConstOperation(T &val): val(new T(val)) { }
-  inline ConstOperation(T *val): val(val) { }
+  inline ConstOperation(T val): val(new T(val)) { }
 };
 
-template <typename ListType, typename ReturnType, typename... Types>
-class Operation: public BasedOperation {
+class OperatorOperation final: public BasedOperatorOperation {
 private:
-  std::vector<ListType*> &list;
+  std::vector<BasedConstOperation *> src;
   std::string const name;
 public:
-  inline std::string const GetName() const noexcept override {
+  inline std::string const GetName() const noexcept override final {
     return this->name;
   }
-  inline void *operator() (std::vector<void*> const &args, std::vector<ListType*> const &list) const override {
-    for(auto it = list.begin(); it != list.end(); ++it) {
-      if(
-	 !it->GetName().compare(this->name) &&
-	 TS::are_same(it->GetReturnType, *new ReturnType)
-	 ) {
-	return (*it)(args);
-      }
-    }
+  inline std::vector<BasedConstOperation *> &GetSrc() const noexcept override final {
+    return *new std::vector<BasedConstOperation *>(this->src);
   }
-  inline Operation(std::vector<ListType*> &list):
-    list(list) { };
+  inline OperatorOperation(std::vector<BasedConstOperation *> src):
+    src(src) { };
 };
